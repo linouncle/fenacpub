@@ -36,46 +36,68 @@ if(isset($_SESSION['login'])){// verifica se existe a varavel session
 
                     <?php
 
-                        $sql_imovel = mysql_query("SELECT * FROM tabela_imovel  Order by id_imovel DESC LIMIT 10");
+$                           $sql_imovel = "SELECT * FROM tabela_imovel  Order by id_imovel DESC LIMIT 10";
+                            $result = $conn->query($sql_imovel);
+                             ;
+
+                       // $sql_imovel = mysql_query("SELECT * FROM tabela_imovel  Order by id_imovel DESC LIMIT 10");
                         
-                        while($imovel = mysql_fetch_object($sql_imovel) ){
+                        while($imovel = $result->fetch_assoc() ){
+
+                            $id_imovel =  $imovel["id_imovel"];
+
+                            $bairro =  $imovel["bairro"];
+                            $valor_venda =  $imovel["valor_venda"];
+                            $valor_locacao =  $imovel["valor_locacao"];
+                            $acodigo =  $imovel["acodigo"];
+                            
+                            $edificio =  $imovel["edificio"];
+                            $empreendimento =  $imovel["empreendimento"];
+                            $tipo =  $imovel["tipo"];
+                            $logradouro =  $imovel["logradouro"];
+                            $endereco =  $imovel["endereco"];
+                            $numero =  $imovel["numero"];
+                            $unidade =  $imovel["unidade"];
+                            $andar_r =  $imovel["andar_r"];
+                            $bloco =  $imovel["bloco"];
+                            $cidade =  $imovel["cidade"];
 
                             echo'<div class="container bloco_lista ">';
                                 echo'<div class="row ">';
                                     
                                     echo'<div class="col-md-4 ">';
 
-                                        $sql_foto = mysql_query("SELECT * FROM tb_imoveis_fotos WHERE id_imovel ='$imovel->id_imovel'  Order by destaque ");
+                                        $sql_foto = $conn->query("SELECT * FROM tb_imoveis_fotos WHERE id_imovel ='$id_imovel'  Order by destaque ");
                                 
-                                        $foto = mysql_fetch_object($sql_foto);
+                                        $foto = $sql_foto->fetch_assoc();
 
                                         if($foto!=""){
-                                            echo"<img src='img/$foto->foto'>";
+                                            echo'<img src="img/'.$foto["foto"].'">';
                                         }
 
                                     echo'</div>';
 
                                     echo'<div class="col-md-8 ">';
                                 
-                                        echo"<h2>Bairro: $imovel->bairro</h2>";
-                                        echo"<h3>Venda: $imovel->valor_venda</h3>";
-                                        echo"<h3>Locação: $imovel->valor_locacao</h3>";
+                                        echo"<h2>Bairro: $bairro</h2>";
+                                        echo"<h3>Venda: $valor_venda</h3>";
+                                        echo"<h3>Locação: $valor_locacao</h3>";
 
-                                        echo"<p>Referencia: $imovel->acodigo - Novo id importação: $imovel->id_imovel</p>";
-                                        echo"<p>Edifício: $imovel->edificio";
-                                        echo" - Condominio: $imovel->empreendimento</p>";
-                                        echo"<p>Tipo: $imovel->tipo</p>";
+                                        echo"<p>Referencia: $acodigo - Novo id importação: $id_imovel</p>";
+                                        echo"<p>Edifício: $edificio";
+                                        echo" - Condominio: $empreendimento</p>";
+                                        echo"<p>Tipo: $tipo</p>";
                                     
-                                        echo"$imovel->logradouro";
-                                        echo"$imovel->endereco , ";
-                                        echo"$imovel->numero ";
-                                        echo" - Unidade: $imovel->unidade";
-                                        echo" - Andar: $imovel->andar_r";
-                                        echo" - Bloco: $imovel->bloco</p>";
-                                        echo"<p>Bairro: $imovel->bairro</p>";
-                                        echo"<p>Cidade: $imovel->cidade</p>";
+                                        echo"$logradouro";
+                                        echo"$endereco , ";
+                                        echo"$numero ";
+                                        echo" - Unidade: $unidade";
+                                        echo" - Andar: $andar_r";
+                                        echo" - Bloco: $bloco</p>";
+                                        echo"<p>Bairro: $bairro</p>";
+                                        echo"<p>Cidade: $cidade</p>";
 
-                                        echo"<p><a href='imovel.php?id_imovel=$imovel->id_imovel' class='btn btn-success'> Ver detalhes</a></p>";
+                                        echo"<p><a href='imovel.php?id_imovel=$id_imovel' class='btn btn-success'> Ver detalhes</a></p>";
 
                                     echo'</div>';
 
