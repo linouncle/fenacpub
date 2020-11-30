@@ -36,7 +36,7 @@ if(isset($_SESSION['login'])){// verifica se existe a varavel session
 
                     <?php
 
-                            $sql_imovel = "SELECT * FROM tabela_imovel  Order by id_imovel DESC LIMIT 10";
+                        /*    $sql_imovel = "SELECT * FROM tabela_imovel  Order by id_imovel DESC LIMIT 10";
                             $result = $conn->query($sql_imovel);
                              
 
@@ -67,13 +67,13 @@ if(isset($_SESSION['login'])){// verifica se existe a varavel session
                                     
                                     echo'<div class="col-md-4 ">';
 
-                                        $sql_foto = $conn->query("SELECT * FROM tb_imoveis_fotos WHERE id_imovel ='$id_imovel'  Order by destaque ");
+                                   //     $sql_foto = $conn->query("SELECT * FROM tb_imoveis_fotos WHERE id_imovel ='$id_imovel'  Order by destaque ");
                                 
-                                        $foto = $sql_foto->fetch_assoc();
+                                    //    $foto = $sql_foto->fetch_assoc();
 
-                                        if($foto!=""){
-                                            echo'<img src="img/'.$foto["foto"].'">';
-                                        }
+                                    //    if($foto!=""){
+                                    //        echo'<img src="img/'.$foto["foto"].'">';
+                                    //    }
 
                                     echo'</div>';
 
@@ -108,7 +108,7 @@ if(isset($_SESSION['login'])){// verifica se existe a varavel session
 
                         }
                     
-
+*/
 
                     ?>
 
