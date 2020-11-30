@@ -45,19 +45,12 @@ header( "Location: erro.php" ) ;
 	$_SESSION['login']=$login;
 	$_SESSION['id_usuario']=$id_usuario;
 
-
-	echo $login;
-
-	echo $_SESSION['login'];
-	echo $_SESSION['id_usuario'];
-
-
 	//gravo as informa��es das vari�veis dentro das sess�es
 	
 	//Pronto agora redirecione o usu�rio para a p�gina secreta
 	
 	//abre a p�gina secretaaaa
-	//header ("Location:menu.php");
+	header ("Location:menu1.php");
 	
 
 }
