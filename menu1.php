@@ -27,7 +27,7 @@ echo $login;
  <?php  include 'includes/footer.php';?>
 
 
- <?
+ <?php
 
 }
 else
