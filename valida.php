@@ -1,20 +1,29 @@
 <?php
 // Conex&atilde;o com o banco de dados
-$conn = @mysql_connect("fenac_teste.mysql.dbaas.com.br", "fenac_teste", "linera13579") or die ("Problemas na conex&atilde;o do sistema.");
-$db = @mysql_select_db("fenac_teste", $conn) or die ("Problemas na conex&atilde;o");
 
+$servername = "187.45.196.184";
+$username = "fenac_teste";
+$password = "linera13579";
+$dbname = "fenac_teste";
 
-
-
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
 
 $login = $_POST['login']; 
 $senha = $_POST['senha']; 
 
-$sql = mysql_query("SELECT * FROM tabela_usuario where login='$login' and senha='$senha'");
+	
+$sql = "SELECT * FROM tabela_usuario where login='$login' and senha='$senha'";
+$result = $conn->query($sql);
+	
+	
 
-$user = mysql_fetch_object($sql) ;
-
+$user = $result->fetch_assoc() ;
 
 
 if ($user == "")
@@ -24,49 +33,10 @@ if ($user == "")
 header( "Location: erro.php" ) ;
 
 
-}else if($user->ativo=='1'){
 	
-	header( "Location: erro.php" ) ;
+}else{
 
-	
-}else
-{
-
-
-//aqui vai entrar a novidade, antes de redirecionarmos
-//vamos salvar algumas informa��es para utilizar depois
-
-//primeiro eu dou o valor 1 para a vari�vel $validacao
-
- 	// Cria uma fun��o que retorna o timestamp de uma data no formato DD/MM/AAAA
-	function geraTimestamp($data) {
-	$partes = explode('/', $data);
-	return mktime(0, 0, 0, $partes[1], $partes[0], $partes[2]);
-	}
-	
-	if($user->provisorio == "1"){
-			$hoje_compara = date("d/m/Y");
-			
-			list ($dia, $mes, $ano) = split ('[/.-]', $user->data_termino);
-			$provisorio_compara = $dia.'/'.$mes.'/'.$ano;
-			
-			$time_inicial = geraTimestamp($hoje_compara);
-			$time_final = geraTimestamp($provisorio_compara);
-			
-			$diferenca = $time_final - $time_inicial; 
-			$dias = (int)floor( $diferenca / (60 * 60 * 24));
-	
-				if($dias < 0 ){
-					header( "Location: erro.php" ) ;
-					$valida_provisorio = "1";
-				}
-	}
-	
-if($valida_provisorio != "1"){
-	
-	$id_usuario = $user->id_usuario ;
-	
-	
+	$id_usuario = $user["id_usuario"] ;
 	
 	//inicio uma Sessao (session e similar a uma gaveta movel)
 	session_start();
@@ -74,12 +44,14 @@ if($valida_provisorio != "1"){
 	//gravo as informa��es das vari�veis dentro das sess�es
 	$_SESSION['login']=$login;
 	$_SESSION['id_usuario']=$id_usuario;
+
+	//gravo as informa��es das vari�veis dentro das sess�es
 	
 	//Pronto agora redirecione o usu�rio para a p�gina secreta
 	
 	//abre a p�gina secretaaaa
 	header ("Location:menu.php");
-	}
+	
 
 }
 //exiba um alerta dizendo que a senha esta errada
