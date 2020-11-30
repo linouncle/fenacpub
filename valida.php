@@ -50,7 +50,7 @@ header( "Location: erro.php" ) ;
 	//Pronto agora redirecione o usu�rio para a p�gina secreta
 	
 	//abre a p�gina secretaaaa
-	header ("Location:menu1.php");
+	header ("Location:menu.php");
 	
 
 }
