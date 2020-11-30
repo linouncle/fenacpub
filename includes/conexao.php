@@ -1,4 +1,4 @@
-<?
+<?php
 	// Conex&atilde;o com o banco de dados fenac_teste.mysql.dbaas.com.br (187.45.196.184)
    // $conn = @mysql_connect("fenac_teste.mysql.dbaas.com.br", "fenac_teste", "linera13579") or die ("Problemas na conex&atilde;o do sistema.");
    $servername = "187.45.196.184";
