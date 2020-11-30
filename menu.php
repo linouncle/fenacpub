@@ -36,9 +36,9 @@ if(isset($_SESSION['login'])){// verifica se existe a varavel session
 
                     <?php
 
-$                           $sql_imovel = "SELECT * FROM tabela_imovel  Order by id_imovel DESC LIMIT 10";
+                            $sql_imovel = "SELECT * FROM tabela_imovel  Order by id_imovel DESC LIMIT 10";
                             $result = $conn->query($sql_imovel);
-                             ;
+                             
 
                        // $sql_imovel = mysql_query("SELECT * FROM tabela_imovel  Order by id_imovel DESC LIMIT 10");
                         
