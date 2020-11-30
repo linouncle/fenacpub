@@ -273,7 +273,11 @@
 		
 	</header>
 
-	<?
+	<?php
+
+	echo"oi";
+
+	$teste ="nanonaonao";
 
 		// Conex&atilde;o com o banco de dados
 		include 'conexao.php';
@@ -287,7 +291,8 @@
         echo"<hr>";
         
         echo"<p style='margin-left:20px'>Ol&aacute;, ";
-        echo "$nome, bem-vindo!.</p>";
+		echo "$nome, bem-vindo!.</p>";
+		echo $teste;
         
         echo"<hr>";
 		
