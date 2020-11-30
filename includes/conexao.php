@@ -1,8 +1,18 @@
 <?
 	// Conex&atilde;o com o banco de dados fenac_teste.mysql.dbaas.com.br (187.45.196.184)
    // $conn = @mysql_connect("fenac_teste.mysql.dbaas.com.br", "fenac_teste", "linera13579") or die ("Problemas na conex&atilde;o do sistema.");
-    $conn = @mysql_connect("187.45.196.184", "fenac_teste", "linera13579") or die ("Problemas na conex&atilde;o do sistema.");
-    $db = @mysql_select_db("fenac_teste", $conn) or die ("Problemas na conex&atilde;o");
+   $servername = "187.45.196.184";
+   $username = "fenac_teste";
+   $password = "linera13579";
+   $dbname = "fenac_teste";
+   
+   // Create connection
+   $conn = new mysqli($servername, $username, $password, $dbname);
+   // Check connection
+   if ($conn->connect_error) {
+       die("Connection failed: " . $conn->connect_error);
+   }
+   
 
 mysql_query("SET NAMES 'utf8'");
     mysql_query('SET character_set_connection=utf8');

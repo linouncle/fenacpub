@@ -277,14 +277,15 @@
 
 		// Conex&atilde;o com o banco de dados
 		include 'conexao.php';
-        
-        $sql = mysql_query("SELECT * FROM tabela_usuario where login='$login'");     
-        $user = mysql_fetch_object($sql) ;
+
+		$sql = "SELECT * FROM tabela_usuario where login='$login' and senha='$senha'";
+		$result = $conn->query($sql);
+		$user = $result->fetch_assoc() ;
         
         echo"<hr>";
         
         echo"<p style='margin-left:20px'>Ol&aacute;, ";
-        echo"$user->nome. Bem-vindo!.</p>";
+        echo $user["nome"].' ;. Bem-vindo!.</p>';
         
         echo"<hr>";
 		
