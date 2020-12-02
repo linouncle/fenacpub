@@ -167,12 +167,12 @@ if(isset($_SESSION['login'])){// verifica se existe a varavel session
                         </select>
                         </p>
 
-                            <?
+                            <?php
                             if($usuario!=""){
                             ?>
                              <input type="hidden" name="id_usuario_editar" id="id_usuario_editar" value="<?php echo"$usuario->id_usuario"; ?>">
 
-                            <?
+                            <?php
                             }
                             ?>
                         <input type="submit" name="Submit" value="Cadastrar" class="btn btn-success" />
@@ -190,7 +190,7 @@ if(isset($_SESSION['login'])){// verifica se existe a varavel session
 
                         <div class=" bloco_lista">
                         
-                        <?
+                        <?php
 
                         $sql_usuarios = $conn->query("SELECT * FROM tabela_usuario   ORDER BY nome ");     
                         while( $usuarios = $sql_usuarios->fetch_object()){

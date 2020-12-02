@@ -198,7 +198,7 @@ include 'includes/conexao.php';
         <form action="inserir_imovel.php" method="post" name="form1" id="form1" onSubmit="return checkform(this);" enctype="multipart/form-data" >
 
 
-                            <?
+                            <?php
                             if($id_imovel!="" and $duplicar!="sim"){
 
                             echo"<input type='hidden'  name='id_imovel' id='id_imovel' value='$id_imovel'/>";	
