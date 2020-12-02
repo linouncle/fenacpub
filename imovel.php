@@ -63,8 +63,8 @@ if(isset($_SESSION['login'])){// verifica se existe a varavel session
 			//ID
 			$id_imovel = $_GET['id_imovel'];
 
-			$sql_imovel = mysql_query("SELECT * FROM tabela_imovel where id_imovel='$id_imovel'");
-			$imovel = mysql_fetch_object($sql_imovel);
+			$sql_imovel = $conn->query("SELECT * FROM tabela_imovel where id_imovel='$id_imovel'");
+			$imovel = $sql_imovel->fetch_object();
 
 
 
@@ -76,8 +76,8 @@ if(isset($_SESSION['login'])){// verifica se existe a varavel session
 
 
 
-			$sql_dolar= mysql_query("SELECT * FROM tabela_dolar");
-			$dolar = mysql_fetch_object($sql_dolar);
+			$sql_dolar= $conn->query("SELECT * FROM tabela_dolar");
+			$dolar = $sql_dolar->fetch_object();
 
 			$valor_dolar = $preco / $dolar->dolar;
 
@@ -387,8 +387,8 @@ if(isset($_SESSION['login'])){// verifica se existe a varavel session
 
 						$tem_foto = 0;
 
-						$select_foto1 = mysql_query("SELECT * FROM tb_imoveis_fotos Where id_imovel = '$imovel->id_imovel' Order By destaque desc, ordemfoto asc, id_foto asc");
-						while($linha_foto1 = mysql_fetch_array($select_foto1)){
+						$select_foto1 = $conn->query("SELECT * FROM tb_imoveis_fotos Where id_imovel = '$imovel->id_imovel' Order By destaque desc, ordemfoto asc, id_foto asc");
+						while($linha_foto1 = $select_foto1->fetch_array()){
 
 							$ID_foto1 = $linha_foto1["id_foto"];
 							$foto_imovel1 = $linha_foto1["foto"];
@@ -418,11 +418,11 @@ if(isset($_SESSION['login'])){// verifica se existe a varavel session
 						//
 						echo"<h3>Detalhes condomínio</h3>";
 
-						$sql_caracteristicas_imovel = mysql_query("SELECT * FROM  tabela_caracteristicas_imovel where id_imovel='$id_imovel'");
-						while($caracteristicas_imovel = mysql_fetch_object($sql_caracteristicas_imovel)){
+						$sql_caracteristicas_imovel = $conn->query("SELECT * FROM  tabela_caracteristicas_imovel where id_imovel='$id_imovel'");
+						while($caracteristicas_imovel = $sql_caracteristicas_imovel->fetch_object()){
 
-							$sql_caracteristicas = mysql_query("SELECT * FROM  tb_caracteristicas where id_caracteristicas='$caracteristicas_imovel->id_caracteristicas'");
-							$caracteristicas= mysql_fetch_object($sql_caracteristicas);
+							$sql_caracteristicas = $conn->query("SELECT * FROM  tb_caracteristicas where id_caracteristicas='$caracteristicas_imovel->id_caracteristicas'");
+							$caracteristicas= $sql_caracteristicas->fetch_object();
 
 							echo '<p>'.$caracteristicas->caracteristicas.'</p>';
 
@@ -439,11 +439,11 @@ if(isset($_SESSION['login'])){// verifica se existe a varavel session
 						//
 						echo"<h3>Detalhes imóvel</h3>";
 
-						$sql_detalhes_imovel = mysql_query("SELECT * FROM  tabela_detalhes_imovel where id_imovel='$id_imovel'");
-						while($detalhes_imovel = mysql_fetch_object($sql_detalhes_imovel)){
+						$sql_detalhes_imovel = $conn->query("SELECT * FROM  tabela_detalhes_imovel where id_imovel='$id_imovel'");
+						while($detalhes_imovel = $sql_detalhes_imovel->fetch_object()){
 
-							$sql_detalhes = mysql_query("SELECT * FROM  tb_detalhes where id_detalhes='$detalhes_imovel->id_detalhes'");
-							$detalhes= mysql_fetch_object($sql_detalhes);
+							$sql_detalhes = $conn->query("SELECT * FROM  tb_detalhes where id_detalhes='$detalhes_imovel->id_detalhes'");
+							$detalhes= $sql_detalhes->fetch_object();
 
 							echo '<p>'.$detalhes->detalhes.'</p>';
 
@@ -490,6 +490,90 @@ if(isset($_SESSION['login'])){// verifica se existe a varavel session
 
 
 
+<?php
+				 $endereco = $imovel->endereco;
+				 $numero = $imovel->numero;
+
+				$n =0;
+				$linha = 0;
+
+				$select_unidades = $conn->query("SELECT  * FROM tabela_imovel Where endereco='$endereco' and numero ='$numero'");
+				while($unidades = $select_unidades->fetch_array() ){
+
+					if($n==0){
+						echo'<div class="row">';
+							echo'<div class="col">';
+							echo '<h2 class="titulo_separador">Outras unidades</h2>';
+							echo '</div>';
+						echo '</div>';
+						echo'<div class="row fundo_escuro ">';
+							echo "<div class='col-md-1 menu-desktop'>Unid</div>";
+							echo "<div class='col-md-1 menu-desktop'>Ref</div>";
+							echo "<div class='col-md-1 menu-desktop '>Data</div>";
+							echo "<div class='col-md-1 menu-desktop' >Prop</div>";
+							echo "<div class='col-md-1 menu-desktop'>Andar</div>";
+							echo "<div class='col-md-1 menu-desktop'>Tipo</div>";
+							echo "<div class='col-md-2 menu-desktop'>Venda</div>";
+							echo "<div class='col-md-1 menu-desktop'>Loc</div>";
+							echo "<div class='col-md-1 menu-desktop'>Dorm</div>";
+							echo "<div class='col-md-1 menu-desktop'>Suit</div>";
+							echo "<div class='col-md-1  menu-desktop'>A.Util</div>";
+						echo '</div>';
+			
+						$n =1;
+			
+					}
+
+					$unidade = $unidades['unidade'];
+					$referencia = $unidades['referencia'];
+					$data = $unidades['data'];
+					$proprietario_busca = $unidades['proprietario'];
+					$fone = $unidades['fone'];
+					$andar = $unidades['andar'];
+					$tipo = $unidades['tipo'];
+					$preco = $unidades['valor_venda'];
+					$preco_loc = $unidades['valor_locacao'];
+					$dormitorios = $unidades['dormitorio'];
+					$suites = $unidades['suite'];
+					$area_util = $unidades['area_util'];
+
+					if($unidades["imovel"]==11002){
+						$tipo= 'Ap.';
+					}else if($unidades["imovel"]==11003){
+						$tipo = 'Casa';
+					}else{
+						$tipo = 'Comercial';
+					}
+
+					if($linha==0){
+						echo'<div class="row fundo_claro">';
+						$linha = 1;
+					}else{
+						echo'<div class="row fundo_medio">';
+						$linha = 0;
+					}
+
+					echo "<div class='col-md-1'><span class='celular'>Unidade: </span>$unidade</div>";
+					echo "<div class='col-md-1'><span class='celular'>Referência: </span><a href='detalhes_imovel.php?id_imovel=$referencia'>$referencia</a></div>";
+					echo "<div class='col-md-1'><span class='celular'>Data: </span>$data</div>";
+					echo "<div class='col-md-1'><span class='celular'>Proprietário: </span>$proprietario_busca</div>";
+					echo "<div class='col-md-1'><span class='celular'>Andar: </span>$andar</div>";
+					echo "<div class='col-md-1'><span class='celular'>Tipo: </span>$tipo</div>";
+					echo "<div class='col-md-2'><span class='celular'>Venda: </span>$preco</div>";
+					echo "<div class='col-md-1'><span class='celular'>Locação: </span>$preco_loc</div>";
+					echo "<div class='col-md-1'><span class='celular'>Dormitórios: </span>$dormitorios</div>";
+					echo "<div class='col-md-1'><span class='celular'>Suítes: </span>$suites</div>";
+					echo "<div class='col-md-1'><span class='celular'>Área útil: </span>$area_util</div>";
+
+					echo '</div>';
+
+				}
+			
+			
+			?>
+
+
+
         
 
 
@@ -497,7 +581,7 @@ if(isset($_SESSION['login'])){// verifica se existe a varavel session
  <?php  include 'includes/footer.php';?>
 
 
- <?
+ <?php
 
 }
 else
@@ -509,7 +593,7 @@ else
 alert("Por favor, efetue o login para acessar esse link")
 </script>
 
-<?
+<?php
 echo "<div align='center'>";
 echo "<span class='style2'>Se voc&ecirc; j&aacute; tem cadastro volte a home e fa&ccedil;a login.<a href=index.php>VOLTAR A HOME</a></span>";
 echo "</div>";

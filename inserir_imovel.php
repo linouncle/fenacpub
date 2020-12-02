@@ -30,6 +30,10 @@ if(isset($_SESSION['login'])){// verifica se existe a varavel session
 			//ID
             $id_imovel = $_POST['id_imovel'];
 
+            echo $id_imovel;
+
+            echo"id_imovel";
+
 
             //Valores
             $acodigo = $_POST['acodigo'];
@@ -111,14 +115,21 @@ if(isset($_SESSION['login'])){// verifica se existe a varavel session
             $detalhes=$_POST['detalhes'];
 
 
+            echo $id_imovel;
+
+
             if($id_imovel==""){
 
-                $sql = mysql_query("INSERT INTO tabela_imovel  (id_imovel, data, hora,  edificio, empreendimento, construtora, estilo, valor_venda, valor_locacao, valor_condominio, iptu, endereco, numero, unidade, andar_r, bloco, bairro, cidade, estado, proprietario, fone, email, habitese, andar_es, ap_andar, dormitorio, suite, area_util, area_total, banheiro, vagas, posicao, licenca_n, licensa, zelador, tel_zelador, chave_visita, vago, indicador, promotor, corretor, tipo, subtipo, descricao, torre) VALUES ('', '".$data_atual."', '".$hora_atual."', '".$edificio."',  '".$empreendimento."', '".$construtora."', '".$estilo."', '".$valor_venda."', '".$valor_locacao."', '".$valor_condominio."', '".$iptu."', '".$endereco."', '".$numero."', '".$unidade."', '".$andar_r."', '".$bloco."', '".$bairro."', '".$cidade."', '".$estado."','".$proprietario."', '".$fone."', '".$email."', '".$habitese."', '".$andar_es."', '".$ap_andar."', '".$dormitorio."', '".$suite."', '".$area_util."', '".$area_total."', '".$banheiro."',  '".$vagas."', '".$posicao."', '".$licenca_n."', '".$licensa."', '".$zelador."', '".$tel_zelador."',  '".$chave_visita."', '".$vago."', '".$indicador."', '".$promotor."', '".$corretor."', '".$tipo."', '".$subtipo."', '".$descricao."', '".$torre."')");
+                echo"oioooi";
 
+                //$sql = $conn->query("INSERT INTO tabela_imovel  (id_imovel, data, hora,  edificio, empreendimento, construtora, estilo, valor_venda, valor_locacao, valor_condominio, iptu, endereco, numero, unidade, andar_r, bloco, bairro, cidade, estado, proprietario, fone, email, habitese, andar_es, ap_andar, dormitorio, suite, area_util, area_total, banheiro, vagas, posicao, licenca_n, licensa, zelador, tel_zelador, chave_visita, vago, indicador, promotor, corretor, tipo, subtipo, descricao, torre) VALUES ('', '".$data_atual."', '".$hora_atual."', '".$edificio."',  '".$empreendimento."', '".$construtora."', '".$estilo."', '".$valor_venda."', '".$valor_locacao."', '".$valor_condominio."', '".$iptu."', '".$endereco."', '".$numero."', '".$unidade."', '".$andar_r."', '".$bloco."', '".$bairro."', '".$cidade."', '".$estado."','".$proprietario."', '".$fone."', '".$email."', '".$habitese."', '".$andar_es."', '".$ap_andar."', '".$dormitorio."', '".$suite."', '".$area_util."', '".$area_total."', '".$banheiro."',  '".$vagas."', '".$posicao."', '".$licenca_n."', '".$licensa."', '".$zelador."', '".$tel_zelador."',  '".$chave_visita."', '".$vago."', '".$indicador."', '".$promotor."', '".$corretor."', '".$tipo."', '".$subtipo."', '".$descricao."', '".$torre."')");
+                //edificio esta com problemas
+                
+                $sql = $conn->query("INSERT INTO tabela_imovel  (id_imovel, data, hora,  empreendimento, construtora, estilo, valor_venda, valor_locacao, valor_condominio, iptu, endereco, numero, unidade, andar_r, bloco, bairro, cidade, estado, proprietario, fone, email, habitese, andar_es, ap_andar, dormitorio, suite, area_util, area_total, banheiro, vagas, posicao, licenca_n, licensa, zelador, tel_zelador, chave_visita, vago, indicador, promotor, corretor, tipo, subtipo, descricao, torre) VALUES ('', '".$data_atual."', '".$hora_atual."',   '".$empreendimento."', '".$construtora."', '".$estilo."', '".$valor_venda."', '".$valor_locacao."', '".$valor_condominio."', '".$iptu."', '".$endereco."', '".$numero."', '".$unidade."', '".$andar_r."', '".$bloco."', '".$bairro."', '".$cidade."', '".$estado."','".$proprietario."', '".$fone."', '".$email."', '".$habitese."', '".$andar_es."', '".$ap_andar."', '".$dormitorio."', '".$suite."', '".$area_util."', '".$area_total."', '".$banheiro."',  '".$vagas."', '".$posicao."', '".$licenca_n."', '".$licensa."', '".$zelador."', '".$tel_zelador."',  '".$chave_visita."', '".$vago."', '".$indicador."', '".$promotor."', '".$corretor."', '".$tipo."', '".$subtipo."', '".$descricao."', '".$torre."')");
 
-                $sql_imovel = mysql_query("SELECT * FROM tabela_imovel  Order by id_imovel DESC LIMIT 1");
+                $sql_imovel = $conn->query("SELECT * FROM tabela_imovel  Order by id_imovel DESC LIMIT 1");
                         
-                $imovel = mysql_fetch_object($sql_imovel) ;
+                $imovel = $sql_imovel->fetch_object() ;
 
                 $id_imovel = $imovel->id_imovel;
 
@@ -127,7 +138,9 @@ if(isset($_SESSION['login'])){// verifica se existe a varavel session
 
             }else{
 
-                $update = mysql_query("UPDATE tabela_imovel SET
+                echo"nononononon";
+
+                $update = $conn->query("UPDATE tabela_imovel SET
                 edificio='$edificio',
                 empreendimento='$empreendimento',
                 construtora='$construtora',
@@ -174,12 +187,12 @@ if(isset($_SESSION['login'])){// verifica se existe a varavel session
 
             //Caracteristicas
 
-            $sql = mysql_query("INSERT INTO tabela_caracteristicas_imovel VALUES ('', '".$caracteristicas[$i]."', '".$id_imovel."')");
+            $sql = $conn->query("INSERT INTO tabela_caracteristicas_imovel VALUES ('', '".$caracteristicas[$i]."', '".$id_imovel."')");
 
             for($i=0; $i<sizeof($caracteristicas); $i++){
                 $query .= ($i+1!=sizeof($caracteristicas)) ? $caracteristicas[$i]."," : $caracteristicas[$i].")";
                 
-                $sql = mysql_query("INSERT INTO tabela_caracteristicas_imovel VALUES ('', '".$caracteristicas[$i]."', '".$id_imovel."')");
+                $sql = $conn->query("INSERT INTO tabela_caracteristicas_imovel VALUES ('', '".$caracteristicas[$i]."', '".$id_imovel."')");
             
             }
 
@@ -187,7 +200,7 @@ if(isset($_SESSION['login'])){// verifica se existe a varavel session
             for($i=0; $i<sizeof($detalhes); $i++){
                 $query .= ($i+1!=sizeof($detalhes)) ? $detalhes[$i]."," : $detalhes[$i].")";
                 
-                $sql = mysql_query("INSERT INTO tabela_detalhes_imovel VALUES ('', '".$detalhes[$i]."', '".$id_imovel."')");
+                $sql = $conn->query("INSERT INTO tabela_detalhes_imovel VALUES ('', '".$detalhes[$i]."', '".$id_imovel."')");
             
             }
 
@@ -195,9 +208,11 @@ if(isset($_SESSION['login'])){// verifica se existe a varavel session
 
             //FOTOS				
 				
-                if(!empty($_FILES['arquivo']['name'])){
+                if($_FILES["arquivo"]["error"][0] == 0) {
 
-                    echo'oioioioioioioioioio';
+                   // echo $_FILES["arquivo"]["error"] ;
+
+                   // echo'oioioioioioioioioio';
 
                     foreach($_FILES["arquivo"]["tmp_name"] as $key=>$tmp_name) {
                         $file_name=$_FILES["arquivo"]["name"][$key];
@@ -210,7 +225,7 @@ if(isset($_SESSION['login'])){// verifica se existe a varavel session
                         //$linha_ultimoI = mysql_fetch_array($select_ultimoI);
                         //$ID_foto = $linha_ultimoI["ID"];
                         //$ID_foto = $ID_foto + 1;		
-                        $cod_nome = $id_imovel.'-'.$bairro.'-'.$key;
+                        $cod_nome = $hora_atual.'-'.$id_imovel.'-'.$bairro.'-'.$key;
     
                         //$ext = strtolower(substr($fotos['name'][$i],-4)); //Pegando extensão do arquivo
                         $ext = '.jpg';
@@ -220,7 +235,7 @@ if(isset($_SESSION['login'])){// verifica se existe a varavel session
                         $fotoName = $new_name;	
                         
     
-                               $insert_foto = mysql_query("INSERT INTO tb_imoveis_fotos (id_foto,id_imovel,foto) VALUES ('','$id_imovel','$fotoName')");
+                               $insert_foto = $conn->query("INSERT INTO tb_imoveis_fotos (id_foto,id_imovel,foto) VALUES ('','$id_imovel','$fotoName')");
     
     
                                 move_uploaded_file($file_tmp=$_FILES["arquivo"]["tmp_name"][$key],"img/".$fotoName);
@@ -245,8 +260,8 @@ if(isset($_SESSION['login'])){// verifica se existe a varavel session
 
 					<?php
 
-							$sql_imovel = mysql_query("SELECT * FROM tabela_imovel where id_imovel='$id_imovel'");
-							$imovel = mysql_fetch_object($sql_imovel);
+							$sql_imovel = $conn->query("SELECT * FROM tabela_imovel where id_imovel='$id_imovel'");
+							$imovel = $sql_imovel->fetch_object();
 
 							echo"<div class='imovel_home'>";
 			
@@ -290,7 +305,7 @@ if(isset($_SESSION['login'])){// verifica se existe a varavel session
  <?php  include 'includes/footer.php';?>
 
 
- <?
+ <?php
 
 }
 else
@@ -302,7 +317,7 @@ else
 alert("Por favor, efetue o login para acessar esse link")
 </script>
 
-<?
+<?php
 echo "<div align='center'>";
 echo "<span class='style2'>Se voc&ecirc; j&aacute; tem cadastro volte a home e fa&ccedil;a login.<a href=index.php>VOLTAR A HOME</a></span>";
 echo "</div>";

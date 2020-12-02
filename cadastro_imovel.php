@@ -23,8 +23,8 @@ include 'includes/conexao.php';
 
     if($editar=="sim"){
         
-    $sql_usuario = mysql_query("SELECT * FROM tabela_usuario WHERE id_usuario='$id_usuario_editar' ");     
-    $usuario = mysql_fetch_object($sql_usuario);
+    $sql_usuario = $conn->query("SELECT * FROM tabela_usuario WHERE id_usuario='$id_usuario_editar' ");     
+    $usuario = $sql_usuario->fetch_object();
     }
 
 ?>
@@ -186,8 +186,8 @@ include 'includes/conexao.php';
             $id_imovel = $_GET['id_imovel']; 
             $duplicar = $_GET['duplicar']; 
 
-            $sql_imovel = mysql_query("SELECT * FROM tabela_imovel where id_imovel='$id_imovel'");
-            $imovel = mysql_fetch_object($sql_imovel);
+            $sql_imovel = $conn->query("SELECT * FROM tabela_imovel where id_imovel='$id_imovel'");
+            $imovel = $sql_imovel->fetch_object();
 
 
 
@@ -622,7 +622,7 @@ include 'includes/conexao.php';
                         <hr>
                         <h3 class="titulo_separador">Fotos</h3>
                         <p>Selecione as imagens
-                        <input name="arquivo[]" type="file" multiple />
+                        <input name="arquivo[]" type="file"  />
 
                     </div>
 
@@ -640,8 +640,8 @@ include 'includes/conexao.php';
 
                                 <?php
                                 
-                                    $select_caracteristicas = mysql_query("SELECT id_caracteristicas, caracteristicas FROM tb_caracteristicas  Where ID_tipoimovel='11002'  Order By caracteristicas asc");
-                                    while($linha_caracteristicas = mysql_fetch_array($select_caracteristicas)){
+                                    $select_caracteristicas = $conn->query("SELECT id_caracteristicas, caracteristicas FROM tb_caracteristicas  Where ID_tipoimovel='11002'  Order By caracteristicas asc");
+                                    while($linha_caracteristicas = $select_caracteristicas->fetch_array()){
                                     $id_caracteristicas = $linha_caracteristicas["id_caracteristicas"];
                                     $caracteristicas = $linha_caracteristicas["caracteristicas"];
                                 
@@ -660,8 +660,8 @@ include 'includes/conexao.php';
                             <h2  class="tarja_titulo">Detalhes imóvel</h2>
 
                                 <?php
-                                    $select_detalhes = mysql_query("SELECT id_detalhes, detalhes FROM tb_detalhes Order By detalhes asc");
-                                    while($linha_detalhes = mysql_fetch_array($select_detalhes)){
+                                    $select_detalhes = $conn->query("SELECT id_detalhes, detalhes FROM tb_detalhes Order By detalhes asc");
+                                    while($linha_detalhes = $select_detalhes->fetch_array()){
                                     $id_detalhes = $linha_detalhes["id_detalhes"];
                                     $detalhes = $linha_detalhes["detalhes"];
                                     
@@ -696,7 +696,7 @@ include 'includes/conexao.php';
  <?php  include 'includes/footer.php';?>
 
 
- <?
+ <?php
 
 }
 else
@@ -708,7 +708,7 @@ else
 alert("Por favor, efetue o login para acessar esse link")
 </script>
 
-<?
+<?php
 echo "<div align='center'>";
 echo "<span class='style2'>Se voc&ecirc; j&aacute; tem cadastro volte a home e fa&ccedil;a login.<a href=index.php>VOLTAR A HOME</a></span>";
 echo "</div>";

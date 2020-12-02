@@ -391,7 +391,7 @@ if(isset($_SESSION['login'])){// verifica se existe a varavel session
 
               ////PAGINACAO
 
-                $busca = mysql_real_escape_string($_GET['filtro']);
+                //$busca = mysql_real_escape_string($_GET['filtro']);
                 // ============================================
                 // Registros por p�gina
                 $por_pagina = 20;
@@ -415,9 +415,13 @@ if(isset($_SESSION['login'])){// verifica se existe a varavel session
 
                     	
                         // Executa a consulta
-                        $query = mysql_query($sql);
+                        $query = $conn->query($sql);
                         // Salva o valor da coluna 'total', do primeiro registro encontrado pela consulta
-                        $total = mysql_result($query, 0, 'total');
+                        //$total = $query->result( 0, 'total');
+                        $total = $query->num_rows;
+
+                    
+
                         // Calcula o m�ximo de paginas
                         $paginas =  (($total % $por_pagina) > 0) ? (int)($total / $por_pagina) + 1 : ($total / $por_pagina);
                         // ============================================
@@ -432,20 +436,20 @@ if(isset($_SESSION['login'])){// verifica se existe a varavel session
                         // Monta outra consulta MySQL, agora a que far� a busca com pagina��o
                         $sql = "SELECT * FROM tabela_imovel WHERE $filtro_ativo $filtro ORDER BY `id_imovel` LIMIT {$offset}, {$por_pagina}";
 
-                        echo $sql;
+                        //echo $sql;
 
-                        $sql_imovel = mysql_query($sql);
+                        $sql_imovel = $conn->query($sql);
                         
-                        while($imovel = mysql_fetch_object($sql_imovel) ){
+                        while($imovel = $sql_imovel->fetch_object() ){
 
                             echo'<div class="container bloco_lista ">';
                                 echo'<div class="row ">';
                                     
                                     echo'<div class="col-md-4 ">';
 
-                                        $sql_foto = mysql_query("SELECT * FROM tb_imoveis_fotos WHERE id_imovel ='$imovel->id_imovel'  Order by destaque ");
+                                        $sql_foto = $conn->query("SELECT * FROM tb_imoveis_fotos WHERE id_imovel ='$imovel->id_imovel'  Order by destaque ");
                                 
-                                        $foto = mysql_fetch_object($sql_foto);
+                                        $foto = $sql_foto->fetch_object();
 
                                         if($foto!=""){
                                             echo"<img src='img/$foto->foto'>";
@@ -526,7 +530,7 @@ if(isset($_SESSION['login'])){// verifica se existe a varavel session
  <?php  include 'includes/footer.php';?>
 
 
- <?
+ <?php
 
 }
 else
@@ -538,7 +542,7 @@ else
 alert("Por favor, efetue o login para acessar esse link")
 </script>
 
-<?
+<?php
 echo "<div align='center'>";
 echo "<span class='style2'>Se voc&ecirc; j&aacute; tem cadastro volte a home e fa&ccedil;a login.<a href=index.php>VOLTAR A HOME</a></span>";
 echo "</div>";

@@ -9,7 +9,7 @@ if(isset($_SESSION['login'])){// verifica se existe a varavel session
    $id_usuario=$_SESSION['id_usuario']; // passa o valor da variavel session para outra variavel so que uma variavel dentro do mesmo arquivo
 
 
-include 'includes/conexao.php';
+   include 'includes/header.php';
 
     $dia_atual = date("d");
     $mes_atual = date("m");
@@ -23,13 +23,11 @@ include 'includes/conexao.php';
 
     if($editar=="sim"){
         
-    $sql_usuario = mysql_query("SELECT * FROM tabela_usuario WHERE id_usuario='$id_usuario_editar' ");     
-    $usuario = mysql_fetch_object($sql_usuario);
+    $sql_usuario = $conn->query("SELECT * FROM tabela_usuario WHERE id_usuario='$id_usuario_editar' ");     
+    $usuario =$sql_usuario->fetch_object();
     }
 
 ?>
-
-<?php include 'includes/header.php';?>
 
 
 
@@ -194,8 +192,8 @@ include 'includes/conexao.php';
                         
                         <?
 
-                        $sql_usuarios = mysql_query("SELECT * FROM tabela_usuario   ORDER BY nome ");     
-                        while( $usuarios = mysql_fetch_object($sql_usuarios)){
+                        $sql_usuarios = $conn->query("SELECT * FROM tabela_usuario   ORDER BY nome ");     
+                        while( $usuarios = $sql_usuarios->fetch_object()){
 
                             echo"<p>";
                             echo"$usuarios->nome - ";
@@ -223,7 +221,7 @@ include 'includes/conexao.php';
  <?php  include 'includes/footer.php';?>
 
 
- <?
+ <?php
 
 }
 else
@@ -235,7 +233,7 @@ else
 alert("Por favor, efetue o login para acessar esse link")
 </script>
 
-<?
+<?php
 echo "<div align='center'>";
 echo "<span class='style2'>Se voc&ecirc; j&aacute; tem cadastro volte a home e fa&ccedil;a login.<a href=index.php>VOLTAR A HOME</a></span>";
 echo "</div>";

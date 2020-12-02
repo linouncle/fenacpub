@@ -23,7 +23,7 @@ include 'includes/conexao.php';
 
     if($editar=="sim"){
         
-    $sql_usuario = mysql_query("SELECT * FROM tabela_usuario WHERE id_usuario='$id_usuario_editar' ");     
+    $sql_usuario = $conn->query("SELECT * FROM tabela_usuario WHERE id_usuario='$id_usuario_editar' ");     
     $usuario = mysql_fetch_object($sql_usuario);
     }
 
@@ -167,8 +167,8 @@ include 'includes/conexao.php';
 
             $id_imovel = $_GET['id_imovel']; 
 
-            $sql_imovel = mysql_query("SELECT * FROM tabela_imovel where id_imovel='$id_imovel'");
-            $imovel = mysql_fetch_object($sql_imovel);
+            $sql_imovel = $conn->query("SELECT * FROM tabela_imovel where id_imovel='$id_imovel'");
+            $imovel = $sql_imovel->fetch_object();
 
 
 
@@ -640,18 +640,15 @@ include 'includes/conexao.php';
 
                                 <?php
                                 
-                                    $select_caracteristicas = mysql_query("SELECT ID, caracteristicas FROM tb_caracteristicas  Where ID_tipoimovel='11002'  Order By caracteristicas asc");
-                                    while($linha_caracteristicas = mysql_fetch_array($select_caracteristicas)){
-                                    $ID_caracteristica = $linha_caracteristicas["ID"];
+                                    $select_caracteristicas = $conn->query("SELECT id_caracteristicas, caracteristicas FROM tb_caracteristicas  Where ID_tipoimovel='11002'  Order By caracteristicas asc");
+                                    while($linha_caracteristicas = $select_caracteristicas->fetch_array()){
+                                    $id_caracteristicas = $linha_caracteristicas["id_caracteristicas"];
                                     $caracteristicas = $linha_caracteristicas["caracteristicas"];
                                 
-                                    $select_imo_caracteristicas = mysql_query("SELECT ID_caracteristica FROM tb_imoveis_caract Where ID_caracteristica='$ID_caracteristica' and ID_imovel='$ID'");
-                                    $rs_caracteristicas =mysql_fetch_array($select_imo_caracteristicas);
-                                    
                                 
-                                            echo '<input class="form-check-input" type="checkbox" id="'.$ID_caracteristica.'" value="'.$caracteristicas.'"><label class="form-check-label" for="'.$ID_caracteristica.'">'.$caracteristicas.'</label>';
+                                            echo '<input  name="caracteristicas[]" class="form-check-input" type="checkbox" id="'.$id_caracteristicas.'" value="'.$id_caracteristicas.'"><label class="form-check-label" for="'.$id_caracteristicas.'">'.$caracteristicas.'</label>';
                                             echo '<br>';
-                                    }	
+                                    }
 
                                 ?>
 
@@ -663,16 +660,13 @@ include 'includes/conexao.php';
                             <h2  class="tarja_titulo">Detalhes imóvel</h2>
 
                                 <?php
-                                    $select_detalhes = mysql_query("SELECT ID, detalhes FROM tb_detalhes Order By detalhes asc");
-                                    while($linha_detalhes = mysql_fetch_array($select_detalhes)){
-                                    $ID_detalhe = $linha_detalhes["ID"];
+                                    $select_detalhes = $conn->query("SELECT id_detalhes, detalhes FROM tb_detalhes Order By detalhes asc");
+                                    while($linha_detalhes = $select_detalhes->fetch_array()){
+                                    $id_detalhes = $linha_detalhes["id_detalhes"];
                                     $detalhes = $linha_detalhes["detalhes"];
-
-                                    $select_imo_detalhes = mysql_query("SELECT ID_detalhe FROM tb_imoveis_detalhes Where ID_detalhe='$ID_detalhe' and ID_imovel='$ID'");
-                                    $rs_detalhes =mysql_fetch_array($select_imo_detalhes);
                                     
 
-                                    echo '<input class="form-check-input" type="checkbox" id="'.$ID_detalhe.'" value="'.$detalhes.'"><label class="form-check-label" for="'.$ID_detalhe.'">'.$detalhes.'</label>';
+                                    echo '<input  name="detalhes[]" class="form-check-input" type="checkbox" id="'.$id_detalhes.'" value="'.$id_detalhes.'"><label class="form-check-label" for="'.$id_detalhes.'">'.$detalhes.'</label>';
                                     echo '<br>';
                                     
                                     }	
