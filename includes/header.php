@@ -177,9 +177,41 @@
 		display: inline-block;
 		width: 20px;
 	}
+
+
+	.desktop{
+		display:none;
+	}
+	.celular{
+		display:initial;
+	}
+
+	.fundo_claro{
+		background: #eee;
+	}
+	.fundo_medio{
+		background: #ccc;
+	}
+	.fundo_escuro{
+		background: #333;
+		color: #fff;
+	}
+	.fundo_laranja{
+		background: #fde2b7;
+	}
 	
 	
 @media only screen and (min-width: 600px) {
+
+	.desktop{
+		display:block;
+	}
+	.celular{
+		display:none;
+	}
+
+
+
 	label {
 	display: inline-block;
 	margin: 10px 0 0 0;
@@ -275,9 +307,7 @@
 
 	<?php
 
-	echo"oi";
 
-	$teste ="nanonaonao";
 
 		// Conex&atilde;o com o banco de dados
 		include 'conexao.php';
@@ -292,7 +322,6 @@
         
         echo"<p style='margin-left:20px'>Ol&aacute;, ";
 		echo "$nome, bem-vindo!.</p>";
-		echo $teste;
         
         echo"<hr>";
 		
