@@ -16,175 +16,19 @@ if(isset($_SESSION['login'])){// verifica se existe a varavel session
     $ano_atual = date("Y");
 
 
-    $id_usuario_editar = $_GET['id_usuario_editar'];
-    $editar = $_GET['editar'];
-    $excluir = $_GET['excluir'];
 
-
-    if($editar=="sim"){
-        
-    $sql_usuario = $conn->query("SELECT * FROM tabela_usuario WHERE id_usuario='$id_usuario_editar' ");     
-    $usuario = $sql_usuario->fetch_object();
-    }
 
 ?>
 
 
 
-    <!-- Adicionando JQuery -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-            crossorigin="anonymous"></script>
 
-    <!-- Adicionando Javascript -->
-    <script>
-
-        $(document).ready(function() {
-
-            function limpa_formulário_cep() {
-                // Limpa valores do formulário de cep.
-                $("#endereco").val("");
-                $("#bairro").val("");
-                $("#cidade").val("");
-                $("#estado").val("");
-                $("#ibge").val("");
-            }
-            
-            //Quando o campo cep perde o foco.
-            $("#cep").blur(function() {
-
-                //Nova variável "cep" somente com dígitos.
-                var cep = $(this).val().replace(/\D/g, '');
-
-                //Verifica se campo cep possui valor informado.
-                if (cep != "") {
-
-                    //Expressão regular para validar o CEP.
-                    var validacep = /^[0-9]{8}$/;
-
-                    //Valida o formato do CEP.
-                    if(validacep.test(cep)) {
-
-                        //Preenche os campos com "..." enquanto consulta webservice.
-                        $("#endereco").val("...");
-                        $("#bairro").val("...");
-                        $("#cidade").val("...");
-                        $("#estado").val("...");
-                        $("#ibge").val("...");
-
-                        //Consulta o webservice viacep.com.br/
-                        $.getJSON("https://viacep.com.br/ws/"+ cep +"/json/?callback=?", function(dados) {
-
-                            if (!("erro" in dados)) {
-                                //Atualiza os campos com os valores da consulta.
-                                $("#endereco").val(dados.logradouro);
-                                $("#bairro").val(dados.bairro);
-                                $("#cidade").val(dados.localidade);
-                                $("#estado").val(dados.uf);
-                                $("#ibge").val(dados.ibge);
-                            } //end if.
-                            else {
-                                //CEP pesquisado não foi encontrado.
-                                limpa_formulário_cep();
-                                alert("CEP não encontrado.");
-                            }
-                        });
-                    } //end if.
-                    else {
-                        //cep é inválido.
-                        limpa_formulário_cep();
-                        alert("Formato de CEP inválido.");
-                    }
-                } //end if.
-                else {
-                    //cep sem valor, limpa formulário.
-                    limpa_formulário_cep();
-                }
-            });
-        });
-
-    </script>
-
-    <SCRIPT>
-
-    
-        function checkform ( form )
-        {
-
-
-            if (form.nome.value == "") {
-                alert( "Preencha o nome." );
-                form.nome.focus();
-                return false ;
-            }
-            
-            if (form.telefone.value  == "") {
-                alert( "Preencha o campo fone." );
-                form.telefone.focus();
-                return false ;
-            }
-                
-            if (form.email.value  == "") {
-                alert( "Preencha o campo email." );
-                form.email.focus();
-                return false ;
-            }
-            
-            if (form.login_novo.value  == "") {
-                alert( "Preencha o campo login." );
-                form.login_novo.focus();
-                return false ;
-            }
-            
-            if (form.senha.value  == "") {
-                alert( "Preencha o campo senha." );
-                form.senha.focus();
-                return false ;
-            }
-            
-            if (form.senha.value != form.senha2.value) {
-                alert( "Campo confirme sua senha esta diferente da senha." );
-                form.senha2.focus();
-                return false ;
-            }
-            
-            if (form.tipo_usuario.value == "0") {
-                alert( "Selecione o tipo de usuario." );
-                form.tipo_usuario.focus();
-                return false ;
-            }
-
-            return true ;
-        }
-    </script>
-
-		<?php 
-			
-            $dia_atual = date("d");
-            $mes_atual = date("m");
-            $ano_atual = date("Y");
-
-            $id_imovel = $_GET['id_imovel']; 
-
-            $sql_imovel = $conn->query("SELECT * FROM tabela_imovel where id_imovel='$id_imovel'");
-            $imovel = $sql_imovel->fetch_object();
-
-
-
-		?>
         
         <h1><i class="fas fa-home"></i> Busca imóvel</h1>
 
         <form action="resultado_busca.php" method="post" name="form1" id="form1" onSubmit="return checkform(this);">
 
-                            <?
-                            if($id_imovel!=""){
-
-                            echo"<input type='hidden'  name='id_imovel' id='id_imovel' value='$id_imovel'/>";	
-                            }
-
-                            ?>	
-
+                        
             <div class="container">
                 <div class="row">
 
@@ -203,7 +47,7 @@ if(isset($_SESSION['login'])){// verifica se existe a varavel session
 
                                         <div class="col">
                                         <label for="endereco">Endere&ccedil;o*: </label><br>
-                                        <input id="endereco" name="endereco" class="input_endereco" value="<?php echo"$imovel->endereco" ?>"/ >
+                                        <input id="endereco" name="endereco" class="input_endereco" value="" >
                                         </div>
 
                                     </div>  
@@ -212,22 +56,22 @@ if(isset($_SESSION['login'])){// verifica se existe a varavel session
 
                                             <div class="col-md-3">
                                             <label for="cep">CEP*:</label> <br>
-                                            <input type="text" name="cep" id="cep" value="<?php echo"$imovel->cep"; ?>" />
+                                            <input type="text" name="cep" id="cep" value="" />
                                             </div>
 
                                             <div class="col-md-3">
                                             <label for="estado" class="label_auto">Estado* (SP): </label>
-                                            <input type="text" name="estado" id="estado" value="<?php echo"$imovel->estado"; ?>" maxlength="2"  />
+                                            <input type="text" name="estado" id="estado" value="" maxlength="2"  />
                                             </div>
 
                                             <div class="col-md-3">
                                             <label for="cidade" >Cidade*: </label>
-                                            <input type="text" name="cidade" id="cidade" value="<?php echo"$imovel->cidade" ?>"  />
+                                            <input type="text" name="cidade" id="cidade" value=""  />
                                             </div>
 
                                             <div class="col-md-3">
                                             <label for="bairro">Bairro*: </label>
-                                            <input type="text" name="bairro" id="bairro" value="<?php echo"$imovel->bairro" ?>"  />
+                                            <input type="text" name="bairro" id="bairro" value=""  />
                                             </div>
 
 
@@ -238,22 +82,22 @@ if(isset($_SESSION['login'])){// verifica se existe a varavel session
 
                                             <div class="col-md-3">
                                             <label for="numero" class="label_menor">N&uacute;mero*: </label>
-                                            <input  name="numero" id="numero" class="input_numero"  value="<?php echo"$imovel->numero" ?>"/ >
+                                            <input  name="numero" id="numero" class="input_numero"  value="" >
                                             </div>
 
                                             <div class="col-md-3">
                                             <label for="unidade" class="label_menor">Unidade: </label>
-                                            <input type="text"  name="unidade" id="unidade"  value="<?php echo"$imovel->unidade" ?>"/ >
+                                            <input type="text"  name="unidade" id="unidade"  value="" >
                                             </div>
 
                                             <div class="col-md-3">
                                             <label for="unidade" class="label_menor">Andar: </label>
-                                            <input type="text"  name="unidade" id="unidade"  value="<?php echo"$imovel->unidade" ?>"/ >
+                                            <input type="text"  name="unidade" id="unidade"  value="">
                                             </div>
 
                                             <div class="col-md-3">
                                             <label for="unidade" class="label_menor">Bloco: </label>
-                                            <input type="text"  name="unidade" id="unidade"  value="<?php echo"$imovel->unidade" ?>"/ >
+                                            <input type="text"  name="unidade" id="unidade"  value="" >
                                             </div>
 
                                         </div>
@@ -265,22 +109,22 @@ if(isset($_SESSION['login'])){// verifica se existe a varavel session
 
                                             <div class="col-md-3">
                                             <label for="condominio" class="label_auto">Condom&iacute;nio: </label>
-                                            <input type="text"  name="condominio" id="condominio"  value="<?php echo"$imovel->condominio" ?>"  / >
+                                            <input type="text"  name="condominio" id="condominio"  value=""   >
                                             </div>
 
                                             <div class="col-md-3">
                                             <label for="edificio">Edif&iacute;cio: </label>
-                                            <input type="text"  name="edificio" id="edificio" value="<?php echo"$imovel->edificio" ?>" / >
+                                            <input type="text"  name="edificio" id="edificio" value=""  >
                                             </div>
 
                                             <div class="col-md-3">
                                             <label for="construtora" >Construtora: </label>
-                                            <input type="text" name="construtora" id="construtora" value="<?php echo"$imovel->construtora" ?>"  />
+                                            <input type="text" name="construtora" id="construtora" value=""  />
                                             </div>
 
                                             <div class="col-md-3">
                                             <label for="estilo">Estilo: </label>
-                                            <input type="text" name="estilo" id="estilo" value="<?php echo"$imovel->estilo" ?>"  />
+                                            <input type="text" name="estilo" id="estilo" value=""  />
                                             </div>
 
 
@@ -372,32 +216,32 @@ if(isset($_SESSION['login'])){// verifica se existe a varavel session
 
                                             <div class="col-md-2">
                                             <label for="habitese" >Habite-se </label>
-                                            <input type="text" id="habitese" name="habitese" class="valor_menor"  value="<?php echo"$imovel->habitese"; ?>">
+                                            <input type="text" id="habitese" name="habitese" class="valor_menor"  value="">
                                             </div>
 
                                             <div class="col-md-2">
                                             <label for="andares" class="label_menor" id="label_suites" >Andares </label>
-                                            <input type="text" id="suites" name="andares" class="valor_menor"  value="<?php echo"$imovel->andares"; ?>">
+                                            <input type="text" id="suites" name="andares" class="valor_menor"  value="">
                                             </div>
 
                                             <div class="col-md-2">
                                             <label for="por_andar" class="label_menor">Aps/andar </label>
-                                            <input type="text" id="por_andar" name="por_andar" class="valor_menor"  value="<?php echo"$imovel->por_andar"; ?>">
+                                            <input type="text" id="por_andar" name="por_andar" class="valor_menor"  value="">
                                             </div>
 
                                             <div class="col-md-2">
                                             <label for="vagas" class="label_menor">Vagas </label>
-                                            <input type="text" id="vagas" name="vagas" class="valor_menor"  value="<?php echo"$imovel->vagas"; ?>">
+                                            <input type="text" id="vagas" name="vagas" class="valor_menor"  value="">
                                             </div>
 
                                             <div class="col-md-2">
                                             <label for="posicao" class="label_menor">Posição </label>
-                                            <input type="text" id="posicao" name="posicao" class="valor_menor"  value="<?php echo"$imovel->posicao"; ?>">
+                                            <input type="text" id="posicao" name="posicao" class="valor_menor"  value="">
                                             </div>
 
                                             <div class="col-md-2">
                                             <label for="licencas" class="label_menor">Licençsas </label>
-                                            <input type="text" id="licencas" name="licencas" class="valor_menor"  value="<?php echo"$imovel->licencas"; ?>">
+                                            <input type="text" id="licencas" name="licencas" class="valor_menor"  value="">
                                             </div>
 
                                         </div> 
@@ -412,22 +256,22 @@ if(isset($_SESSION['login'])){// verifica se existe a varavel session
 
                                             <div class="col-md-3">
                                             <label for="corretor" class="label_menor" >Corretor </label>
-                                            <input type="text" id="corretor" name="corretor" class="valor_menor" value="<?php echo"$imovel->corretor"; ?>">
+                                            <input type="text" id="corretor" name="corretor" class="valor_menor" value="">
                                             </div>
 
                                             <div class="col-md-3">
                                             <label for="indicador" class="label_menor" id="label_suites" >Indicador </label>
-                                            <input type="text" id="indicador" name="indicador" class="valor_menor"  value="<?php echo"$imovel->indicador"; ?>">
+                                            <input type="text" id="indicador" name="indicador" class="valor_menor"  value="">
                                             </div>
 
                                             <div class="col-md-3">
                                             <label for="promotor" class="label_menor">Promotor</label>
-                                            <input type="text" id="promotor" name="promotor" class="valor_menor"  value="<?php echo"$imovel->promotor"; ?>">
+                                            <input type="text" id="promotor" name="promotor" class="valor_menor"  value="">
                                             </div>
 
                                             <div class="col-md-3">
                                             <label for="emuso" class="label_menor">Em uso </label>
-                                            <input type="text" id="emuso" name="emuso" class="valor_menor"  value="<?php echo"$imovel->emuso"; ?>">
+                                            <input type="text" id="emuso" name="emuso" class="valor_menor"  value="">
                                             </div>
 
                                             
@@ -439,22 +283,22 @@ if(isset($_SESSION['login'])){// verifica se existe a varavel session
 
                                             <div class="col-md-3">
                                             <label for="zelador" >Zelador: </label>
-                                            <input type="text" id="zelador" name="zelador" class="valor_menor"  value="<?php echo"$imovel->zelador"; ?>">
+                                            <input type="text" id="zelador" name="zelador" class="valor_menor"  value="">
                                             </div>
 
                                             <div class="col-md-3">
                                             <label for="fone_zelador" class="label_menor" id="label_suites" >Fone zelador: </label>
-                                            <input type="text" id="fone_zelador" name="fone_zelador" class="valor_menor"  value="<?php echo"$imovel->fone_zelador"; ?>">
+                                            <input type="text" id="fone_zelador" name="fone_zelador" class="valor_menor"  value="">
                                             </div>
 
                                             <div class="col-md-3">
                                             <label for="vago" class="label_menor">Vago: </label>
-                                            <input type="text" id="vago" name="vago" class="valor_menor"  value="<?php echo"$imovel->vago"; ?>">
+                                            <input type="text" id="vago" name="vago" class="valor_menor"  value="">
                                             </div>
 
                                             <div class="col-md-3">
                                             <label for="chave" class="label_menor">Chave visita </label>
-                                            <input type="text" id="chave" name="chave" class="valor_menor"  value="<?php echo"$imovel->chave"; ?>">
+                                            <input type="text" id="chave" name="chave" class="valor_menor"  value="">
                                             </div>
 
                                         </div>  
@@ -475,10 +319,10 @@ if(isset($_SESSION['login'])){// verifica se existe a varavel session
 
                                             <div class="col">
                                                 <label for="negociacao">Negocia&ccedil;&atilde;o: </label><br>
-                                                <select id="negociacao" name="negociacao" onChange="optionCheck()">
-                                                <option value="1" <?php if($imovel->sai==1){ echo"selected"; } ?> >Vender</option>
-                                                <option value="2" <?php if($imovel->sai==2){ echo"selected"; } ?> >Alugar</option>
-                                                <option value="3" <?php if($imovel->sai==3){ echo"selected"; } ?> >Vender e Alugar</option>
+                                                <select id="negociacao" name="negociacao">
+                                                <option value="1" >Vender</option>
+                                                <option value="2" >Alugar</option>
+                                                <option value="3" >Vender e Alugar</option>
                                                 
                                                 </select>
                                             </div> 
@@ -486,19 +330,19 @@ if(isset($_SESSION['login'])){// verifica se existe a varavel session
                                             <div class="col">
                                                 <label for="sai">Altera&ccedil;&atilde;o: </label><br>
                                                 <select id="sai" name="sai" >
-                                                <option value="Ativo" <?php if($imovel->negociacao=='Ativo'){ echo"selected"; } ?> >Ativo</option>
-                                                <option value="Nv Preço Ativo" <?php if($imovel->negociacao=='Nv Preço Ativo'){ echo"selected"; } ?> >Nv Preço Ativo</option>
-                                                <option value="Vendido Baixa" <?php if($imovel->negociacao=='Vendido Baixa'){ echo"selected"; } ?> >Vendido Baixa</option>
-                                                <option value="Duplicata Baixa" <?php if($imovel->negociacao=='Duplicata Baixa'){ echo"selected"; } ?> >Duplicata Baixa</option>
-                                                <option value="Proposta Ativo" <?php if($imovel->negociacao=='Proposta Ativo'){ echo"selected"; } ?> >Proposta Ativo</option>
-                                                <option value="Proposta Baixa" <?php if($imovel->negociacao=='Proposta Baixa'){ echo"selected"; } ?> >Proposta Baixa</option>
-                                                <option value="NV Tel Ativo" <?php if($imovel->negociacao=='NV Tel Ativo'){ echo"selected"; } ?> >NV Tel Ativo</option>
-                                                <option value="Locado Baixa" <?php if($imovel->negociacao=='Locado Baixa'){ echo"selected"; } ?> >Locado Baixa</option>
-                                                <option value="V S Temp Ativo" <?php if($imovel->negociacao=='V S Temp Ativo'){ echo"selected"; } ?> >V S Temp Ativo</option>
-                                                <option value="V S Def Baixa" <?php if($imovel->negociacao=='V S Def Baixa'){ echo"selected"; } ?> >V S Def Baixa</option>
-                                                <option value="Antiga Baixa" <?php if($imovel->negociacao=='Antiga Baixa'){ echo"selected"; } ?> >Antiga Baixa</option>
-                                                <option value="Promocao" <?php if($imovel->negociacao=='Promocao'){ echo"selected"; } ?> >Promocao</option>
-                                                <option value="Baixa Nova" <?php if($imovel->negociacao=='Baixa Nova'){ echo"selected"; } ?> >Baixa Nova</option>
+                                                <option value="Ativo"  >Ativo</option>
+                                                <option value="Nv Preço Ativo" >Nv Preço Ativo</option>
+                                                <option value="Vendido Baixa" >Vendido Baixa</option>
+                                                <option value="Duplicata Baixa" >Duplicata Baixa</option>
+                                                <option value="Proposta Ativo"  >Proposta Ativo</option>
+                                                <option value="Proposta Baixa"  >Proposta Baixa</option>
+                                                <option value="NV Tel Ativo" >NV Tel Ativo</option>
+                                                <option value="Locado Baixa"  >Locado Baixa</option>
+                                                <option value="V S Temp Ativo"  >V S Temp Ativo</option>
+                                                <option value="V S Def Baixa" >V S Def Baixa</option>
+                                                <option value="Antiga Baixa" >Antiga Baixa</option>
+                                                <option value="Promocao"  >Promocao</option>
+                                                <option value="Baixa Nova"  >Baixa Nova</option>
                                                 </select>
                                             </div> 
 
@@ -510,11 +354,11 @@ if(isset($_SESSION['login'])){// verifica se existe a varavel session
                                                 <label for="tipo">Tipo imóvel: </label>
                                                 <select  name="tipo" id="tipo" onChange="muda_subtipo()">
                                                 <option value="0" selected="selected">Selecione</option>
-                                                <option value="Apartamento" <?php if($imovel->tipo=="Apartamento"){ echo"selected"; } ?> >Apartamento</option>
-                                                <option value="Casa"		<?php if($imovel->tipo=="Casa"){ echo"selected"; } ?> >Casa</option>
-                                                <option value="Comercial" 	<?php if($imovel->tipo=="Comercial"){ echo"selected"; } ?> >Comercial</option>
-                                                <option value="Terreno" 	<?php if($imovel->tipo=="Terreno"){ echo"selected"; } ?> >Terreno</option>
-                                                <option value="Rural" 		<?php if($imovel->tipo=="Rural"){ echo"selected"; } ?> >Rural</option>
+                                                <option value="Apartamento"  >Apartamento</option>
+                                                <option value="Casa"		>Casa</option>
+                                                <option value="Comercial" 	>Comercial</option>
+                                                <option value="Terreno" 	 >Terreno</option>
+                                                <option value="Rural" 		 >Rural</option>
                                                 </select>
                                             </div> 
 
@@ -566,12 +410,12 @@ if(isset($_SESSION['login'])){// verifica se existe a varavel session
 
                                         <div class="col-md-6">
                                         <label for="valor_condominio" class="label_menor">Condom&iacute;nio: </label>
-                                        <input type="text" id="valor_condominio" name="valor_condominio"  onKeyUp="maskIt(this,event,'###.###.###,##',true)" dir="rtl" value="<?php echo"$imovel->valor_condominio"; ?>" > 
+                                        <input type="text" id="valor_condominio" name="valor_condominio"  onKeyUp="maskIt(this,event,'###.###.###,##',true)" dir="rtl" value="" > 
                                         </div>
 
                                         <div class="col-md-6">
                                         <label for="iptu">IPTU: </label>
-                                        <input type="text" id="iptu" name="iptu"  onKeyUp="maskIt(this,event,'###.###.###,##',true)" dir="rtl"  value="<?php echo"$imovel->iptu"; ?>" > 
+                                        <input type="text" id="iptu" name="iptu"  onKeyUp="maskIt(this,event,'###.###.###,##',true)" dir="rtl"  value="" > 
                                         </div>
 
                                     </div>  
