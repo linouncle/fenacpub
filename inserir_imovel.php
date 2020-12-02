@@ -30,10 +30,6 @@ if(isset($_SESSION['login'])){// verifica se existe a varavel session
 			//ID
             $id_imovel = $_POST['id_imovel'];
 
-            echo $id_imovel;
-
-            echo"id_imovel";
-
 
             //Valores
             $acodigo = $_POST['acodigo'];
@@ -115,12 +111,10 @@ if(isset($_SESSION['login'])){// verifica se existe a varavel session
             $detalhes=$_POST['detalhes'];
 
 
-            echo $id_imovel;
 
 
             if($id_imovel==""){
 
-                echo"oioooi";
 
                 //$sql = $conn->query("INSERT INTO tabela_imovel  (id_imovel, data, hora,  edificio, empreendimento, construtora, estilo, valor_venda, valor_locacao, valor_condominio, iptu, endereco, numero, unidade, andar_r, bloco, bairro, cidade, estado, proprietario, fone, email, habitese, andar_es, ap_andar, dormitorio, suite, area_util, area_total, banheiro, vagas, posicao, licenca_n, licensa, zelador, tel_zelador, chave_visita, vago, indicador, promotor, corretor, tipo, subtipo, descricao, torre) VALUES ('', '".$data_atual."', '".$hora_atual."', '".$edificio."',  '".$empreendimento."', '".$construtora."', '".$estilo."', '".$valor_venda."', '".$valor_locacao."', '".$valor_condominio."', '".$iptu."', '".$endereco."', '".$numero."', '".$unidade."', '".$andar_r."', '".$bloco."', '".$bairro."', '".$cidade."', '".$estado."','".$proprietario."', '".$fone."', '".$email."', '".$habitese."', '".$andar_es."', '".$ap_andar."', '".$dormitorio."', '".$suite."', '".$area_util."', '".$area_total."', '".$banheiro."',  '".$vagas."', '".$posicao."', '".$licenca_n."', '".$licensa."', '".$zelador."', '".$tel_zelador."',  '".$chave_visita."', '".$vago."', '".$indicador."', '".$promotor."', '".$corretor."', '".$tipo."', '".$subtipo."', '".$descricao."', '".$torre."')");
                 //edificio esta com problemas
@@ -138,7 +132,6 @@ if(isset($_SESSION['login'])){// verifica se existe a varavel session
 
             }else{
 
-                echo"nononononon";
 
                 $update = $conn->query("UPDATE tabela_imovel SET
                 edificio='$edificio',

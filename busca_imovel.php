@@ -9,7 +9,7 @@ if(isset($_SESSION['login'])){// verifica se existe a varavel session
    $id_usuario=$_SESSION['id_usuario']; // passa o valor da variavel session para outra variavel so que uma variavel dentro do mesmo arquivo
 
 
-include 'includes/conexao.php';
+   include 'includes/header.php';
 
     $dia_atual = date("d");
     $mes_atual = date("m");
@@ -24,12 +24,11 @@ include 'includes/conexao.php';
     if($editar=="sim"){
         
     $sql_usuario = $conn->query("SELECT * FROM tabela_usuario WHERE id_usuario='$id_usuario_editar' ");     
-    $usuario = mysql_fetch_object($sql_usuario);
+    $usuario = $sql_usuario->fetch_object();
     }
 
 ?>
 
-<?php  include 'includes/header.php';?>
 
 
     <!-- Adicionando JQuery -->
