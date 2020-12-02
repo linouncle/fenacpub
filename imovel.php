@@ -98,7 +98,7 @@ if(isset($_SESSION['login'])){// verifica se existe a varavel session
 		?>
 
 		<h1><i class="fas fa-home"></i> Detalhes imóvel - Referência: <?php echo $imovel->acodigo .' - '.$imovel->id_imovel.' / '.$imovel->bairro ?></h1>
-		<? 
+		<?php
 		echo '<p><a href="cadastro_imovel.php?id_imovel='.$imovel->id_imovel.'" class="btn btn-primary">Editar imóvel</a> <a href="cadastro_imovel.php?id_imovel='.$imovel->id_imovel.'&duplicar=sim" class="btn btn-primary">Duplicar imóvel</a> <a href="" class="btn btn-success">Whatsapp</a>  <a href="" class="btn btn-success">Email</a> </p> '; ?>
 
 

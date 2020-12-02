@@ -109,33 +109,33 @@ if(isset($_SESSION['login'])){// verifica se existe a varavel session
 
                         <p>
                         <label for="nome">Nome: </label>
-                        <input type="text" name="nome" id="nome" value="<? echo"$usuario->nome"; ?>" <? if($editar=="sim"){ echo"readonly"; } ?> />
+                        <input type="text" name="nome" id="nome" value="<?phpecho"$usuario->nome"; ?>" <?phpif($editar=="sim"){ echo"readonly"; } ?> />
                         </p>
 
                         <p>
                         <label for="telefone">Telefone: </label>
-                        <input type="text" name="telefone" id="telefone" value="<? echo"$usuario->fone"; ?>" >
+                        <input type="text" name="telefone" id="telefone" value="<?phpecho"$usuario->fone"; ?>" >
                         </p>
 
 
                         <p>
                         <label for="email">Email: </label>
-                        <input  type="text" name="email" id="email" value="<? echo"$usuario->email"; ?>">
+                        <input  type="text" name="email" id="email" value="<?phpecho"$usuario->email"; ?>">
                         </p>
 
                         <p>
                         <label for="login_novo">Login: </label>
-                        <input type="text" name="login_novo" id="login_novo" value="<? echo"$usuario->login"; ?>">
+                        <input type="text" name="login_novo" id="login_novo" value="<?phpecho"$usuario->login"; ?>">
                         </p>
 
                         <p>
                         <label for="senha">Senha: </label>
-                        <input type="password" name="senha" id="senha" value="<? echo"$usuario->senha"; ?>">
+                        <input type="password" name="senha" id="senha" value="<?phpecho"$usuario->senha"; ?>">
                         </p>
 
                         <p>
                         <label for="senha2">Confirme a senha: </label>
-                        <input type="password" id="senha2" name="senha2" value="<? echo"$usuario->senha"; ?>">
+                        <input type="password" id="senha2" name="senha2" value="<?phpecho"$usuario->senha"; ?>">
                         </p>
 
 
@@ -145,10 +145,10 @@ if(isset($_SESSION['login'])){// verifica se existe a varavel session
                         <select name="tipo_usuario" onChange="showDiv(this.value);">
 
                         <option value="0" selected>Selecione</option>
-                        <option value="1"	<? if($usuario->tipo_usuario==1){ echo"selected"; } ?>>Administrador</option>
-                        <option value="2"	<? if($usuario->tipo_usuario==2){ echo"selected"; } ?>>Corretor</option>
-                        <option value="3"	<? if($usuario->tipo_usuario==3){ echo"selected"; } ?>>Secret&aacute;riado</option>
-                        <option value="4"	<? if($usuario->tipo_usuario==4){ echo"selected"; } ?>>Gerente</option>
+                        <option value="1"	<?phpif($usuario->tipo_usuario==1){ echo"selected"; } ?>>Administrador</option>
+                        <option value="2"	<?phpif($usuario->tipo_usuario==2){ echo"selected"; } ?>>Corretor</option>
+                        <option value="3"	<?phpif($usuario->tipo_usuario==3){ echo"selected"; } ?>>Secret&aacute;riado</option>
+                        <option value="4"	<?phpif($usuario->tipo_usuario==4){ echo"selected"; } ?>>Gerente</option>
                         </select>
                         </p>
 
@@ -156,21 +156,21 @@ if(isset($_SESSION['login'])){// verifica se existe a varavel session
 
                         <p>
                         <label for="creci">CRECI: </label>
-                        <input type="text" name="creci" id="creci" value="<? echo"$usuario->creci"; ?>">
+                        <input type="text" name="creci" id="creci" value="<?phpecho"$usuario->creci"; ?>">
                         </p>
 
                         <p>
                         <label for="ativo">Ativo: </label>
                         <select name="ativo">
-                        <option value="0" <? if($usuario->ativo==0){ echo"selected"; } ?>>Sim</option>
-                        <option value="1" <? if($usuario->ativo==1){ echo"selected"; } ?>>N&atilde;o</option>
+                        <option value="0" <?phpif($usuario->ativo==0){ echo"selected"; } ?>>Sim</option>
+                        <option value="1" <?phpif($usuario->ativo==1){ echo"selected"; } ?>>N&atilde;o</option>
                         </select>
                         </p>
 
                             <?
                             if($usuario!=""){
                             ?>
-                             <input type="hidden" name="id_usuario_editar" id="id_usuario_editar" value="<? echo"$usuario->id_usuario"; ?>">
+                             <input type="hidden" name="id_usuario_editar" id="id_usuario_editar" value="<?phpecho"$usuario->id_usuario"; ?>">
 
                             <?
                             }
