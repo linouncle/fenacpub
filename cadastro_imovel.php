@@ -622,7 +622,7 @@ include 'includes/conexao.php';
                         <hr>
                         <h3 class="titulo_separador">Fotos</h3>
                         <p>Selecione as imagens
-                        <input name="arquivo[]" type="file"  />
+                        <input name="arquivo[]" type="file" multiple />
 
                     </div>
 
