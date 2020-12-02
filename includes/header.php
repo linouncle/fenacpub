@@ -259,7 +259,7 @@
 	<header>
 		
              <div class="logo">
-			 	<a href="menu.php"><img src="img/logo-topo.png" alt="logo fenac" /></a>q
+			 	<a href="menu.php"><img src="img/logo-topo.png" alt="logo fenac" /></a>
              </div>
 		
             <div class="menu">
